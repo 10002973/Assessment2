@@ -267,6 +267,17 @@ public class View implements Observer {
         }
     }
     
+    //Alerts the user that the selected time is in the past
+    public void alarmError() throws QueueUnderflowException {
+        JOptionPane.showMessageDialog(panel,"Select a future time","Error!",JOptionPane.OK_CANCEL_OPTION);
+    }
+    
+    //Alerts the user that they cannot save any more alarms
+    public void alarmFull() throws QueueUnderflowException {
+        JOptionPane.showMessageDialog(panel,"You may only save up to 8 alarms!","Error!",JOptionPane.OK_CANCEL_OPTION);
+    }
+    
+    
     //This method shows a popup informing the user that their alarm time has been met
     public void alarmAlert() throws QueueUnderflowException {
         JOptionPane.showMessageDialog(panel,"Your alarm is ringing!","Alert!",JOptionPane.OK_CANCEL_OPTION);
