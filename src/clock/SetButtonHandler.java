@@ -30,6 +30,7 @@ public class SetButtonHandler implements ActionListener{
         view = v;
     }
     
+    @Override
     public void actionPerformed(ActionEvent event) {
         try {
             //Set the format of the date

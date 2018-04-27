@@ -308,10 +308,10 @@ public class View implements Observer {
                     null,
                     list,
                     null);
-                //Send the selected alarm to remove
-                sorted.remove(selected);
-                //Call checkAlarm to check when the new soonest alarm is
-                checkAlarm();
+        //Send the selected alarm to remove
+        sorted.remove(selected);
+        //Call checkAlarm to check when the new soonest alarm is
+        checkAlarm();
     } 
     
     //When the time changes this method is called. It updates the clock, and checks to see if the time now matches the alarm time.
