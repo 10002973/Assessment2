@@ -3,6 +3,7 @@ package clock;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class View implements Observer {
     JFrame frame = new JFrame();
     iCalendar ical;
     
-    public View(Model model) {
+    public View(Model model) throws IOException, ParseException, QueueOverflowException, QueueUnderflowException {
         //Set up instances
         panel = new ClockPanel(model);
         alarm = new Alarm(model, this);
@@ -292,7 +293,7 @@ public class View implements Observer {
         checkAlarm();
     }
     
-    //This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
+    //This section is based on code by Java2s (n.d) Demonstration of File dialog boxes : File Chooser « Swing JFC « Java [online]. Available from <http://www.java2s.com/Code/Java/Swing-JFC/DemonstrationofFiledialogboxes.htm> [27 April 2018]
     //Shows dialogue on close enabling user to save the alarms
     public void saveAlarms() throws IOException {
         String file = new String();
@@ -327,6 +328,29 @@ public class View implements Observer {
         //If user selects to exit without saving, close program
         else {
             frame.dispose();
+        }
+    }
+    
+    //This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
+    public void load() throws IOException, FileNotFoundException, ParseException, QueueOverflowException, QueueUnderflowException{
+        Object[] options = {"Load", "Exit"};
+        //Shows dialog
+        int exitPane = JOptionPane.showOptionDialog(panel,"Would you like to load your saved alarms?","Load?",JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, null, options,null);
+        //If user does want to load saved file
+        if(exitPane == JOptionPane.OK_OPTION){
+            //Setup new file chooser
+            JFileChooser fc = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ics", "ICS", "ical", "ICAL", "icalendar");
+            fc.setFileFilter(filter);
+            fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = fc.showOpenDialog(panel);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                //If a file is selected, get the path and pass to read function in iCalendar class
+                File selected = fc.getSelectedFile();
+                ical.read(selected.getAbsolutePath());
+                System.out.println("Successfully loaded file!");
+            }
         }
     }
 }

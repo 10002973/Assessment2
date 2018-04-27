@@ -1,6 +1,9 @@
 package clock;
 
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 public class Controller {
@@ -20,6 +23,17 @@ public class Controller {
                 model.update();
             }
         };
+        
+        //When the frame is being closed, call saveAlarms to ask if user would like to save their alarms
+        view.frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
+                    view.saveAlarms();
+                } catch (IOException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
+        });
         
         timer = new Timer(100, listener);
         timer.start();

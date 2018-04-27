@@ -7,11 +7,19 @@ package clock;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import queuemanager.QueueOverflowException;
+import queuemanager.QueueUnderflowException;
 import queuemanager.SortedArrayPriorityQueue;
 
 /**
@@ -112,5 +120,39 @@ public class iCalendar {
             }
         }
         bw.close();
+    }
+    
+    //Reads a saved alarm file, and adds the alarms to the program
+    public void read(String f) throws FileNotFoundException, IOException, ParseException, QueueOverflowException, QueueUnderflowException {
+        File file = new File(f);
+        int i = 0;
+        ArrayList alarms = new ArrayList();
+        Scanner in = new Scanner(file);
+        //While there are still lines in the file, loop through them. If a line contains the word 'trigger' add it to the alarms arraylist
+        while(in.hasNext()){
+            String line = in.nextLine();
+            if (line.contains("TRIGGER")){
+                alarms.add(line); 
+                i++;
+            }
+        }
+        //For each item in the list, split it into the date and time
+        for(int x = 0; x <i; x++){
+            String[] time = alarms.get(x).toString().split(":");
+            String year = time[1].substring(0,4);
+            String month = time[1].substring(5,6);
+            String day = time[1].substring(6,8);
+            String hour = time[1].substring(9,11);
+            String minute = time[1].substring(11,13);
+            String second = time[1].substring(13,15);
+            String fullTime = hour + ":" + minute + ":" + second;
+            String fullDate = day + "/" + month + "/" + year;
+
+            //Format the date
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date d = formatter.parse(fullDate);
+            //Send the alarm to be added to the program
+            alarm.add(fullTime, 0, d, true);
+        }
     }
 }

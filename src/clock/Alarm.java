@@ -39,7 +39,7 @@ public class Alarm {
     //This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]
     //Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time.
     //Then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
-    public Boolean add(Object alarm, int priority, Object alarmCal, boolean loaded) {
+    public Boolean add(Object alarm, int priority, Object alarmCal, boolean loaded) throws ParseException, QueueUnderflowException, QueueOverflowException {
         //Set the variables
         long pos = 0;
         long days = 0;
@@ -50,12 +50,12 @@ public class Alarm {
         //Set a time format
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         //System.out.println(alarmCal);
-
-        //Create a string containing the current time.
-        String currTime = (model.hour + ":" + model.minute + ":" + model.second);
-        //Format the current Time
-        Date now = format.parse(currTime);
-        Date alarmSet = format.parse(alarm.toString());
+//
+//        //Create a string containing the current time.
+//        String currTime = (model.hour + ":" + model.minute + ":" + model.second);
+//        //Format the current Time
+//        Date now = format.parse(currTime);
+//        Date alarmSet = format.parse(alarm.toString());
 
         //Get today's date
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");   
