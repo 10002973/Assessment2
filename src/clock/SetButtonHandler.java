@@ -33,7 +33,9 @@ public class SetButtonHandler {
             //Format todays date
             String dates = (formatter.format(today));
             today = formatter.parse(dates);
-            //Call the set alarm method, passing in the variables
+            //Call the set alarm method, passing in the variables.
+            //These variables set the default hour/min/sec in the dialogue popup to 0, set the default date to today, and set the
+            //'selected' variable to 0, showing that this is a new alarm and not an alarm edit.
             view.setAlarm(0,0,0,today,0);
     }
 }
