@@ -36,6 +36,7 @@ public class Alarm {
         view = v;
     }
     
+    //This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]
     //Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time.
     //Then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
     public Boolean add(Object alarm, int priority, Object alarmCal, boolean loaded) {
@@ -66,9 +67,9 @@ public class Alarm {
         //Get difference between the dates
         String alDate = formatter.format(alarmCal);  
         Date alarmDate = formatter.parse(alDate);
-        System.out.println(alDate);
-        System.out.println(alarmDate.getTime());
-        System.out.println(today.getTime());
+//        System.out.println(alDate);
+//        System.out.println(alarmDate.getTime());
+//        System.out.println(today.getTime());
         
         //Get difference between the alarm time and todays time
         long diff = alarmDate.getTime() - today.getTime();

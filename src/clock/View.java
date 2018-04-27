@@ -2,6 +2,8 @@ package clock;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,11 +13,13 @@ import java.util.Observer;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import queuemanager.PriorityItem;
 import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 import queuemanager.SortedArrayPriorityQueue;
 
+//Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
 public class View implements Observer {
     //Set up variables
     ClockPanel panel;
@@ -103,6 +107,7 @@ public class View implements Observer {
         load();
     }
     
+    //This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]
     //Shows a dialogue popup which enables the user to set an alarm.
     public void setAlarm(int h, int m, int s, Date d, long selected) throws QueueOverflowException, QueueUnderflowException {  
         //Create the JSpinners
@@ -285,5 +290,43 @@ public class View implements Observer {
         alarm.remove(((PriorityItem)sorted.storage[0]).getPriority());
         //Checks to see when the next alarm is
         checkAlarm();
+    }
+    
+    //This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
+    //Shows dialogue on close enabling user to save the alarms
+    public void saveAlarms() throws IOException {
+        String file = new String();
+        String loc = new String();
+        //Set button labels
+        Object[] options = {"Save", "Exit without saving"};
+        //Set popup dialogue
+        int exitPane = JOptionPane.showOptionDialog(panel,"Would you like to save your alarms?","Save?",JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, null, options,null);
+        
+        //If user presses save
+        if(exitPane == JOptionPane.OK_OPTION){
+            //Create filechooser
+            JFileChooser fc = new JFileChooser();
+            //Set filter to ical
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ics", "ICS", "ical", "ICAL", "icalendar");
+            fc.setFileFilter(filter);
+            //Set initial directory to user home
+            fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = fc.showSaveDialog(panel);
+            //If user selects a location then get the selected location and file name
+            if (result == JFileChooser.APPROVE_OPTION) {
+                file = fc.getSelectedFile().getName();
+                loc = fc.getCurrentDirectory().toString();
+            }
+            //Write save file
+            ical.write(file,loc);
+            System.out.println("Saved!");
+            //Close program
+            frame.dispose();
+        }
+        //If user selects to exit without saving, close program
+        else {
+            frame.dispose();
+        }
     }
 }
