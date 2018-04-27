@@ -19,6 +19,7 @@ import queuemanager.PriorityItem;
 import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 import queuemanager.SortedArrayPriorityQueue;
+import static queuemanager.SortedArrayPriorityQueue.storage;
 
 //Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
 public class View implements Observer {
@@ -57,6 +58,11 @@ public class View implements Observer {
          
         panel.setPreferredSize(new Dimension(200, 200));
         pane.add(panel, BorderLayout.CENTER);
+        
+        //Add button to remove alarm
+        JButton removeButton = new JButton("Remove alarm");
+        removeButton.addActionListener(new RemoveButtonHandler(model,this));
+        pane.add(removeButton, BorderLayout.PAGE_START);
         
         //Add button to set alarm
         JButton setButton = new JButton("Set alarm");
@@ -100,6 +106,12 @@ public class View implements Observer {
         menuEdit.getAccessibleContext().setAccessibleDescription("Edit an existing alarm");
         menu.add(menuEdit);
         menuEdit.addActionListener(new EditButtonHandler(model,this));
+        
+        //Add menu option to delete an alarm
+        menuEdit = new JMenuItem("Delete an alarm", 'D');
+        menuEdit.getAccessibleContext().setAccessibleDescription("Delete an alarm");
+        menu.add(menuEdit);
+        menuEdit.addActionListener(new RemoveButtonHandler(model,this));
 
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -110,7 +122,7 @@ public class View implements Observer {
     
     //This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]
     //Shows a dialogue popup which enables the user to set an alarm.
-    public void setAlarm(int h, int m, int s, Date d, long selected) throws QueueOverflowException, QueueUnderflowException {  
+    public void setAlarm(int h, int m, int s, Date d, int selected) throws QueueOverflowException, QueueUnderflowException {  
         //Create the JSpinners
         JSpinner hourSpinner = new JSpinner();
         JSpinner minuteSpinner = new JSpinner();
@@ -170,13 +182,27 @@ public class View implements Observer {
                 dateSpinner.commitEdit();
                 
                 //Set the variables
-                int hour = (Integer) hourSpinner.getValue();
-                int minute = (Integer) minuteSpinner.getValue();
-                int second = (Integer) secondSpinner.getValue();
+                String hour = hourSpinner.getValue().toString();
+                String minute = minuteSpinner.getValue().toString();
+                String second = secondSpinner.getValue().toString();
                 Object date = dateSpinner.getValue();
                 int priority = 0;
-                Object alarmTime = hour + ":" + minute + ":" + second;
+                
+                
+                //If the hours/mins/seconds are below 10, place a 0 in front of the number. This is a purely cosmetic change to improve formatting.
+                if (Integer.parseInt(hour) < 10 && !"00".equals(hour)){
+                    hour = "0" + hour;
+                }
 
+                if (Integer.parseInt(minute) < 10 && !"00".equals(minute)){
+                    minute = "0" + minute;
+                }
+
+                if (Integer.parseInt(second) < 10 && !"00".equals(second)){
+                    second = "0" + second;
+                } 
+
+                Object alarmTime = hour + ":" + minute + ":" + second;
                 //If the alarm is successfully inserted, add the label to the panel showing the alarm time
                 if (alarm.add(alarmTime, priority, date, false) == true) {
                     pane.add(label, BorderLayout.PAGE_END);
@@ -194,30 +220,28 @@ public class View implements Observer {
     
     //Checks what the soonest alarm is and sets the label on the panel to display it.
     public void checkAlarm() {
-        //If there are no alarms in the array then display the message.
-       if (sorted.head() == null){
+        //If there are no alarms in the array or if the last item in the array has already passed then display label.
+       if (sorted.head() == null || ((PriorityItem)sorted.storage[sorted.tailIndex]).getPriority() == 0){
            label.setText("No alarm set");
        }
-       else {
-            //Split the time into hours/minutes/seconds
-            String[] time = sorted.head().toString().split(":");
+       else{
+           String[] time;
+           //If the head item has already passed, loop through to find an alarm which has not already passed.
+           if (((PriorityItem)sorted.storage[0]).getPriority() == 0){
+                int count = 1;
+                while(((PriorityItem)sorted.storage[count]).getPriority() ==0 && count <sorted.tailIndex+1){
+                    count++;
+                }
+                time = ((PriorityItem)storage[count]).getItem().toString().split(":");
+            }
+           else{
+                //Split the soonest alarm into hours/minutes/seconds
+                time = sorted.head().toString().split(":");
+            }
             String h = time[0];
             String m = time[1];
             String s = time[2];
        
-            //If the hours/mins/seconds are below 10, place a 0 in front of the number. This is a purely cosmetic change to improve formatting.
-            if (Integer.parseInt(time[0]) < 10){
-                h = "0" + h;
-            }
-            
-            if (Integer.parseInt(time[1]) < 10){
-                m = "0" + m;
-            }
-            
-            if (Integer.parseInt(time[2]) < 10){
-                s = "0" + s;
-            } 
-            
             // Set the label to display the date and time of the soonest alarm           
             label.setText("Next Alarm Set to " + time[3] + "  " + h + ":" + m + ":" + s); 
        }
@@ -246,7 +270,6 @@ public class View implements Observer {
                     null,
                     list,
                     null);
-
         // Split the selected alarm down into its time and date
                 String[] date = list[selected].toString().split("  ");
                 String[] selectedTime = date[1].split(":");
@@ -258,10 +281,38 @@ public class View implements Observer {
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 Date d = formatter.parse(alDate);
                 //Send the variables to setAlarm
-                setAlarm(hour,min,sec,d,((PriorityItem)sorted.storage[selected]).getPriority());
+                setAlarm(hour,min,sec,d,selected);
                 //Call checkAlarm to check when the new soonest alarm is
                 checkAlarm();
     }    
+    
+    //This creates a dialogue enabling the user to select an alarm to delete
+    public void deleteAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
+        Object[] list = new Object[sorted.tailIndex+1];
+        //For each item in the queue, split it into the date and time, and add these to the list array.
+        for(int i = 0; i <SortedArrayPriorityQueue.tailIndex+1; i++){
+            String[] time = ((PriorityItem)sorted.storage[i]).getItem().toString().split(":");
+            String h = time[0];
+            String m = time[1];
+            String s = time[2];
+            String date = time[3];
+            list[i] = date + "  " + h + ":" + m + ":" + s;
+        }
+        //Create the dialogue popup
+        int selected = JOptionPane.showOptionDialog(
+                    panel,
+                    "Select an alarm to delete: ",
+                    "Delete alarm",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    list,
+                    null);
+                //Send the selected alarm to remove
+                sorted.remove(selected);
+                //Call checkAlarm to check when the new soonest alarm is
+                checkAlarm();
+    } 
     
     //When the time changes this method is called. It updates the clock, and checks to see if the time now matches the alarm time.
     public void update(Observable o, Object arg) {
@@ -285,10 +336,10 @@ public class View implements Observer {
     
     
     //This method shows a popup informing the user that their alarm time has been met
-    public void alarmAlert() throws QueueUnderflowException {
+    public void alarmAlert(int id) throws QueueUnderflowException {
         JOptionPane.showMessageDialog(panel,"Your alarm is ringing!","Alert!",JOptionPane.OK_CANCEL_OPTION);
         //The alarm is removed from the queue
-        alarm.remove(((PriorityItem)sorted.storage[0]).getPriority());
+        alarm.remove(id);
         //Checks to see when the next alarm is
         checkAlarm();
     }
@@ -324,10 +375,12 @@ public class View implements Observer {
             System.out.println("Saved!");
             //Close program
             frame.dispose();
+            System.exit(0);
         }
         //If user selects to exit without saving, close program
         else {
             frame.dispose();
+            System.exit(0);
         }
     }
     
