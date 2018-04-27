@@ -62,6 +62,15 @@ public class ViewTest {
         Object arg = null;
         instance.update(o, arg);
     }
+    
+    /**
+     * Test of load method, of class View.
+     */
+    @Test
+    public void testLoad() throws Exception {
+        System.out.println("load");
+        instance.load();
+    }
 
     /**
      * Test of setAlarm method, of class View.
@@ -69,11 +78,11 @@ public class ViewTest {
     @Test
     public void testSetAlarm() throws Exception {
         System.out.println("setAlarm");
-        int h = 18;
+        int h = 22;
         int m = 12;
         int s = 12;
         Date d = today;
-        long selected = 0;
+        int selected = 0;
         instance.setAlarm(h, m, s, d, selected);
 
     }
@@ -92,7 +101,7 @@ public class ViewTest {
      */
     @Test
     public void testEditAlarm() throws Exception {
-        instance.setAlarm(18, 12, 12, today, 0);
+        instance.setAlarm(22, 12, 12, today, 0);
         System.out.println("editAlarm");
         instance.editAlarm();
     }
@@ -102,9 +111,9 @@ public class ViewTest {
      */
     @Test
     public void testAlarmAlert() throws Exception {
-        instance.setAlarm(18, 12, 12, today, 0);
+        instance.setAlarm(22, 12, 12, today, 0);
         System.out.println("alarmAlert");
-        instance.alarmAlert();
+        instance.alarmAlert(0);
     }
 
     /**
@@ -114,6 +123,16 @@ public class ViewTest {
     public void testAlarmError() throws Exception {
         System.out.println("alarmError");
         instance.alarmError();
+    }
+    
+    /**
+     * Test of deleteAlarm method, of class View.
+     */
+    @Test
+    public void testDeleteAlarm() throws Exception {
+        instance.setAlarm(22, 12, 12, today, 0);
+        System.out.println("deleteAlarm");
+        instance.deleteAlarm();
     }
 
     /**
@@ -127,19 +146,12 @@ public class ViewTest {
 
     /**
      * Test of saveAlarms method, of class View.
+     * NOTE: Test will crash due to System exit line in saveAlarms method.
      */
     @Test
     public void testSaveAlarms() throws Exception {
+        instance.setAlarm(22, 12, 12, today, 0);
         System.out.println("saveAlarms");
         instance.saveAlarms();
-    }
-
-    /**
-     * Test of load method, of class View.
-     */
-    @Test
-    public void testLoad() throws Exception {
-        System.out.println("load");
-        instance.load();
     }
 }
