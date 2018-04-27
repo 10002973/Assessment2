@@ -9,9 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import queuemanager.PriorityItem;
 import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 import queuemanager.SortedArrayPriorityQueue;
+import static queuemanager.SortedArrayPriorityQueue.storage;
 
 /**
  *
@@ -93,12 +95,13 @@ public class Alarm {
              pos += alTime - time;
              timeDiff = alTime - time;
         }       
+        else if (alTime - time <= 0 && days <=0){
+            pos = 0;
+        }
         //Otherwise add the alarm time to the pos variable
         else {       
             pos += alTime;
         }
-//        System.out.println(sorted.tailIndex);
-//        System.out.println(sorted.capacity);
         
         //If adding another alarm would go over capacity, call the alarmFull method and return false
         if (sorted.tailIndex + 1 == sorted.capacity){
@@ -113,7 +116,7 @@ public class Alarm {
                 sorted.add(alarm, pos);  
                 //Call the checkAlarm method
                 view.checkAlarm();
-                //System.out.println(sorted.toString());
+                System.out.println(sorted.toString());
                 return true;
             }
             else {
@@ -134,8 +137,8 @@ public class Alarm {
     }
     
     //Call SortedArrayPriorityQueue to remove an alarm from the queue
-    public void remove(long alarm) throws QueueUnderflowException {
-        sorted.remove(alarm);
+    public void remove(int index) throws QueueUnderflowException {
+        sorted.remove(index);
     }
     
     //Call SortedArrayPriorityQueue to get the next alarm
@@ -152,13 +155,26 @@ public class Alarm {
     
     //If the current time matches the time for the next alarm then call alarmAlert to show an alert.
     public void alert() throws QueueUnderflowException {
-        if(head() != null){
-            String[] nextAlarm = head().toString().split(":");
-            if ((Integer.parseInt(nextAlarm[0]) == model.fullhour)
-                    && (Integer.parseInt(nextAlarm[1]) == model.minute)
-                    && (Integer.parseInt(nextAlarm[2]) == model.second)){        
-                view.alarmAlert();
+        String[] nextAlarm;
+        int id = 0;
+        if (head() == null){
+            nextAlarm = null;
+        }
+        else if (((PriorityItem)sorted.storage[0]).getPriority() == 0){
+            int count = 1;
+            while(((PriorityItem)sorted.storage[count]).getPriority() ==0 && count <=sorted.tailIndex){
+                count++;
+                id = count;
             }
+            nextAlarm = ((PriorityItem)sorted.storage[count]).getItem().toString().split(":");
+        }    
+        else {
+            nextAlarm = head().toString().split(":");
+        }  
+        if (nextAlarm != null && (Integer.parseInt(nextAlarm[0]) == model.fullhour)
+                && (Integer.parseInt(nextAlarm[1]) == model.minute)
+                && (Integer.parseInt(nextAlarm[2]) == model.second)){        
+            view.alarmAlert(id);
         }
     }
 }
