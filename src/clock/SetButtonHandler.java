@@ -6,16 +6,21 @@
 package clock;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import queuemanager.QueueOverflowException;
+import queuemanager.QueueUnderflowException;
 
 /**
  *
  * @author Heather
  */
-public class SetButtonHandler {
+public class SetButtonHandler implements ActionListener{
         
     Model model;
     View view;
@@ -25,7 +30,8 @@ public class SetButtonHandler {
         view = v;
     }
     
-    public void actionPerformed(ActionEvent event) throws ParseException {
+    public void actionPerformed(ActionEvent event) {
+        try {
             //Set the format of the date
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             //Get todays date
@@ -37,5 +43,8 @@ public class SetButtonHandler {
             //These variables set the default hour/min/sec in the dialogue popup to 0, set the default date to today, and set the
             //'selected' variable to 0, showing that this is a new alarm and not an alarm edit.
             view.setAlarm(0,0,0,today,0);
+        } catch (ParseException | QueueOverflowException | QueueUnderflowException ex) {
+            Logger.getLogger(SetButtonHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

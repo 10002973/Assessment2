@@ -1,6 +1,7 @@
 package clock;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,6 +9,8 @@ import java.util.Date;
 import javax.swing.*;
 import java.util.Observer;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import queuemanager.PriorityItem;
 import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
@@ -254,7 +257,22 @@ public class View implements Observer {
                 checkAlarm();
     }    
     
+    //When the time changes this method is called. It updates the clock, and checks to see if the time now matches the alarm time.
     public void update(Observable o, Object arg) {
-        panel.repaint();
+        try {
+            panel.repaint();
+            alarm.alert();
+        } catch (QueueUnderflowException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //This method shows a popup informing the user that their alarm time has been met
+    public void alarmAlert() throws QueueUnderflowException {
+        JOptionPane.showMessageDialog(panel,"Your alarm is ringing!","Alert!",JOptionPane.OK_CANCEL_OPTION);
+        //The alarm is removed from the queue
+        alarm.remove(((PriorityItem)sorted.storage[0]).getPriority());
+        //Checks to see when the next alarm is
+        checkAlarm();
     }
 }

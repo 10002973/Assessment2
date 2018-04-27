@@ -149,15 +149,15 @@ public class Alarm {
         return result;
     }
     
-    //If it is time for the next alarm then call alarmAlert to show an alert.
+    //If the current time matches the time for the next alarm then call alarmAlert to show an alert.
     public void alert() throws QueueUnderflowException {
         if(head() != null){
-        String[] nextAlarm = head().toString().split(":");
-        if ((Integer.parseInt(nextAlarm[0]) == model.fullhour)
-                && (Integer.parseInt(nextAlarm[1]) == model.minute)
-                && (Integer.parseInt(nextAlarm[2]) == model.second)){        
-            view.alarmAlert();
-        }
+            String[] nextAlarm = head().toString().split(":");
+            if ((Integer.parseInt(nextAlarm[0]) == model.fullhour)
+                    && (Integer.parseInt(nextAlarm[1]) == model.minute)
+                    && (Integer.parseInt(nextAlarm[2]) == model.second)){        
+                view.alarmAlert();
+            }
         }
     }
 }
