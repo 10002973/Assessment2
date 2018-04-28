@@ -48,17 +48,53 @@ public class AlarmTest {
         
     };
     /**
-     * Test of add method, of class Alarm.
+     * Test adding alarm to head position.
      * @throws java.lang.Exception
      */
     @Test
-    public void testAdd() throws Exception {
+    public void testAddHead() throws Exception {
         System.out.println("add");
         Object alarm = "22:12:12";
         int priority = 0;
         boolean loaded = false;
         Boolean expResult = true;
         Boolean result = instance.add(alarm, priority, now, loaded);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test adding alarm to middle of queue.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testAddMiddle() throws Exception {
+        instance.add("16:15:00", 0, now, false);
+        instance.add("23:15:00", 0, now, false);
+        System.out.println("add middle");
+        Object alarm = "22:12:12";
+        int priority = 0;
+        boolean loaded = false;
+        instance.add(alarm, priority, now, loaded);
+        String expResult = "(16:15:00:28/04/2018, 3566), (22:12:12:28/04/2018, 24998), (23:15:00:28/04/2018, 28766)";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test adding alarm to end of queue.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testAddEnd() throws Exception {
+        instance.add("16:15:00", 0, now, false);
+        instance.add("21:15:00", 0, now, false);
+        System.out.println("add end");
+        Object alarm = "23:15:00";
+        int priority = 0;
+        boolean loaded = false;
+        instance.add(alarm, priority, now, loaded);
+        String expResult = "(16:15:00:28/04/2018, 3564), (21:15:00:28/04/2018, 21564), (23:15:00:28/04/2018, 28764)";
+        String result = instance.toString();
         assertEquals(expResult, result);
     }
 
