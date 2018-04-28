@@ -6,15 +6,13 @@
 package clock;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
- *
- * @author Heather
+ * This class tests the clock class.
+ * @author Heather Taylor-Stanley
+ * 
  */
 public class ClockTest {
     
@@ -31,6 +29,7 @@ public class ClockTest {
 
     /**
      * Test of main method, of class Clock.
+     * @throws java.lang.Exception
      */
     @Test
     public void testMain() throws Exception {
