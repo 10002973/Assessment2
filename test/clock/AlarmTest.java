@@ -17,8 +17,8 @@ import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
- *
- * @author Heather
+ * This class runs tests on the Alarm class.
+ * @author Heather Taylor-Stanley 10002973
  */
 public class AlarmTest {
     
@@ -49,6 +49,7 @@ public class AlarmTest {
     };
     /**
      * Test of add method, of class Alarm.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAdd() throws Exception {
@@ -63,6 +64,7 @@ public class AlarmTest {
 
     /**
      * Test of checkDate method, of class Alarm.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCheckDate() throws Exception {
@@ -77,17 +79,19 @@ public class AlarmTest {
 
     /**
      * Test of remove method, of class Alarm.
+     * @throws java.lang.Exception
      */
     @Test
     public void testRemove() throws Exception {
         instance.add("22:12:12", 0, now, false);
         System.out.println("remove");
-        long alarm = 0;
+        int alarm = 0;
         instance.remove(alarm);
     }
 
     /**
      * Test of head method, of class Alarm.
+     * @throws java.lang.Exception
      */
     @Test
     public void testHead() throws Exception {
@@ -100,6 +104,9 @@ public class AlarmTest {
 
     /**
      * Test of toString method, of class Alarm.
+     * @throws queuemanager.QueueOverflowException
+     * @throws java.text.ParseException
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
     public void testToString() throws QueueOverflowException, ParseException, ParseException, QueueUnderflowException {
@@ -114,6 +121,7 @@ public class AlarmTest {
 
     /**
      * Test of alert method, of class Alarm.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAlert() throws Exception {
