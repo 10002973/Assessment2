@@ -15,15 +15,16 @@ import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
- *
- * @author Heather
+ * This class runs tests on the iCalendar class
+ * @author Heather Taylor-Stanley
  */
 public class iCalendarTest {
-    
+    //Set variables
     Model model = new Model();
     View view;
     iCalendar instance;
     
+    //Initialise variables
     public iCalendarTest() throws IOException, QueueOverflowException, QueueUnderflowException, FileNotFoundException, ParseException {
         this.view = new View(model);
         instance = new iCalendar(model, view);
@@ -39,6 +40,7 @@ public class iCalendarTest {
 
     /**
      * Test of write method, of class iCalendar.
+     * @throws java.lang.Exception
      */
     @Test
     public void testWrite() throws Exception {
@@ -50,6 +52,7 @@ public class iCalendarTest {
 
     /**
      * Test of read method, of class iCalendar.
+     * @throws java.lang.Exception
      */
     @Test
     public void testRead() throws Exception {
