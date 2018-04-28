@@ -17,19 +17,29 @@ import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
- *
- * @author Heather
+ * @author Heather Taylor-Stanley 10002973
+ * 
+ * This class handles the set alarm button. When the set alarm button or menu item is pressed, this class calls the setAlarm function. 
  */
 public class SetButtonHandler implements ActionListener{
         
     Model model;
     View view;
     
+    /**
+     *
+     * @param m
+     * @param v
+     */
     public SetButtonHandler(Model m, View v) {
         model = m;
         view = v;
     }
     
+    /**
+     * Calls the setAlarm method when the set alarm button or menu item is pressed.
+     * @param event
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
@@ -43,7 +53,7 @@ public class SetButtonHandler implements ActionListener{
             //Call the set alarm method, passing in the variables.
             //These variables set the default hour/min/sec in the dialogue popup to 0, set the default date to today, and set the
             //'selected' variable to 0, showing that this is a new alarm and not an alarm edit.
-            view.setAlarm(0,0,0,today,0);
+            view.setAlarm(0,0,0,today,-1);
         } catch (ParseException | QueueOverflowException | QueueUnderflowException ex) {
             Logger.getLogger(SetButtonHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
