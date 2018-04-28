@@ -8,11 +8,11 @@ package clock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
- *
- * @author Heather
+ * This class runs tests on the model class.
+ * @author Heather Taylor-Stanley 10002973
+ * 
  */
 public class ModelTest {
     
