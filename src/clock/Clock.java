@@ -6,9 +6,8 @@ import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
- *
+ * This class is the main class for the program.
  * @author Heather Taylor-Stanley 10002973
- * 
  * 
  */
 public class Clock {
