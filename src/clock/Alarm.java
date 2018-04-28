@@ -17,7 +17,9 @@ import static queuemanager.SortedArrayPriorityQueue.storage;
 
 /**
  *
- * @author Heather
+ * @author Heather Taylor-Stanley 10002973
+ * This class controls the alarm, including all of the alarm functions such as adding and removing alarms. It uses the methods in SortedArrayPriorityQueue.
+ * 
  */
 public class Alarm {
     //Set variables
@@ -32,15 +34,31 @@ public class Alarm {
     int minute;
     int second;
     
-    
+    /**
+     * Initialise the variables.
+     * @param m
+     * @param v
+     */
     public Alarm(Model m, View v){
         model = m;
         view = v;
     }
-    
-    //This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]
-    //Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time.
-    //Then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
+
+    /**
+     * Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time.
+     * Then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
+     * This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]
+     * 
+     * @param alarm
+     * @param priority
+     * @param alarmCal
+     * @param loaded
+     * @return
+     * @throws ParseException
+     * @throws QueueUnderflowException
+     * @throws QueueOverflowException
+     * 
+     */
     public Boolean add(Object alarm, int priority, Object alarmCal, boolean loaded) throws ParseException, QueueUnderflowException, QueueOverflowException {
         //Set the variables
         long pos = 0;
@@ -51,13 +69,6 @@ public class Alarm {
         String[] concat = alarm.toString().split(":");
         //Set a time format
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        //System.out.println(alarmCal);
-//
-//        //Create a string containing the current time.
-//        String currTime = (model.hour + ":" + model.minute + ":" + model.second);
-//        //Format the current Time
-//        Date now = format.parse(currTime);
-//        Date alarmSet = format.parse(alarm.toString());
 
         //Get today's date
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");   
@@ -69,9 +80,6 @@ public class Alarm {
         //Get difference between the dates
         String alDate = formatter.format(alarmCal);  
         Date alarmDate = formatter.parse(alDate);
-//        System.out.println(alDate);
-//        System.out.println(alarmDate.getTime());
-//        System.out.println(today.getTime());
         
         //Get difference between the alarm time and todays time
         long diff = alarmDate.getTime() - today.getTime();
@@ -87,19 +95,23 @@ public class Alarm {
         //System.out.println(days);
         //Get both the current and alarm times in seconds
         int time = ((model.fullhour * 3600)  + (model.minute * 60) + model.second);
-        int alTime = ((Integer.parseInt(concat[0]) * 3600) + (Integer.parseInt(concat[1]) * 60) + Integer.parseInt(concat[2]));
+        int alTime = ((Integer.parseInt(concat[0]) * 3600) + (Integer.parseInt(concat[1]) * 60) + Integer.parseInt(concat[2]));             
+        timeDiff = alTime - time;
         
-        //If the alarm time is larger than the current time then the alarm is occuring after the current time and so the time is taken
-        //away from the alarm time
-        if (alTime - time > 0){
-             pos += alTime - time;
-             timeDiff = alTime - time;
-        }       
-        else if (alTime - time <= 0 && days <=0){
+        //If the alarm date is before the current date then set the priority to 0
+        if (diff <0){
             pos = 0;
         }
-        //Otherwise add the alarm time to the pos variable
-        else {       
+        //If the alarm is today and the time is in the future, then set the priority to the difference between the alarm time and the current time
+        else if(days == 0 && alTime - time > 0){
+            pos += alTime - time;
+        }
+        //If the alarm time is on a future day and further ahead than the current time, add the difference between the alarm time and the current time to the priority.
+        else if (alTime - time > 0){
+             pos += alTime - time;
+        }        
+        //If the alarm is on a future day but the time is before the current time, then add the alarm time to the priority.
+        else if (days > 0 && alTime - time < 0){       
             pos += alTime;
         }
         
@@ -124,8 +136,17 @@ public class Alarm {
             }
         }
     }
-    
-    //Check if the alarm is in the future. If not, call alarmError to show an error message.
+
+    /**
+     * Check if the alarm is in the future. If not, call alarmError to show an error message.
+     * 
+     * @param days
+     * @param timeDiff
+     * @param loaded
+     * @return
+     * @throws QueueUnderflowException
+     * 
+     */
     public Boolean checkDate(long days, long timeDiff, boolean loaded) throws QueueUnderflowException{
         if (days == 0 && timeDiff <= 0 && loaded == false){
             view.alarmError();
@@ -135,42 +156,71 @@ public class Alarm {
             return true;
         }
     }
-    
-    //Call SortedArrayPriorityQueue to remove an alarm from the queue
+
+    /**
+     * Call SortedArrayPriorityQueue to remove an alarm from the queue
+     * 
+     * @param index
+     * @throws QueueUnderflowException
+     * 
+     */
     public void remove(int index) throws QueueUnderflowException {
         sorted.remove(index);
     }
     
-    //Call SortedArrayPriorityQueue to get the next alarm
+    /**
+     * Call SortedArrayPriorityQueue to get the next alarm.
+     * 
+     * @return
+     * @throws QueueUnderflowException
+     * 
+     */
     public Object head() throws QueueUnderflowException{
         return sorted.head();
     }
-    
-    //Call SortedArrayPriorityQueue to print all alarms in the queue
+
+    /**
+     * Call SortedArrayPriorityQueue to print all alarms in the queue
+     * @return
+     * 
+     */
     @Override
     public String toString() {
         String result = sorted.toString();
         return result;
     }
     
-    //If the current time matches the time for the next alarm then call alarmAlert to show an alert.
+    /**
+     * If the current time matches the time for the next alarm then call alarmAlert to show an alert.
+     * @throws QueueUnderflowException
+     * 
+     */
     public void alert() throws QueueUnderflowException {
         String[] nextAlarm;
         int id = 0;
+        //If there are no alarms in the queue then set variable to null
         if (head() == null){
             nextAlarm = null;
         }
+        //If every alarm in the queue has already passed then set variable to null
+        else if (((PriorityItem)sorted.storage[0]).getPriority() == 0 && ((PriorityItem)sorted.storage[sorted.tailIndex]).getPriority() ==0){
+            nextAlarm = null;
+        }
+        //If the head alarm has already passed, then go through each item in the queue until an upcoming alarm is found
         else if (((PriorityItem)sorted.storage[0]).getPriority() == 0){
-            int count = 1;
-            while(((PriorityItem)sorted.storage[count]).getPriority() ==0 && count <=sorted.tailIndex){
+            int count = 0;
+            while(((PriorityItem)sorted.storage[count]).getPriority() ==0 && count <sorted.tailIndex){
                 count++;
                 id = count;
             }
+            //Set the variable to the upcoming alarm
             nextAlarm = ((PriorityItem)sorted.storage[count]).getItem().toString().split(":");
-        }    
+        }  
+        //Otherwise get the head alarm data
         else {
             nextAlarm = head().toString().split(":");
         }  
+        //If the next alarm is not null and the alarm time matches the current time then call alarmAlert.
         if (nextAlarm != null && (Integer.parseInt(nextAlarm[0]) == model.fullhour)
                 && (Integer.parseInt(nextAlarm[1]) == model.minute)
                 && (Integer.parseInt(nextAlarm[2]) == model.second)){        
