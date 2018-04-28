@@ -6,6 +6,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 
+/**
+ *
+ * @author Heather Taylor-Stanley 10002973
+ * 
+ * This class manages the user input. It listens for actions and then acts accordingly.
+ * 
+ */
 public class Controller {
     
     ActionListener listener;
@@ -14,6 +21,12 @@ public class Controller {
     Model model;
     View view;
     
+    /**
+     * Checks for user actions and either updates the software or calls the saveAlarms method.
+     * 
+     * @param m
+     * @param v
+     */
     public Controller(Model m, View v) {
         model = m;
         view = v;
