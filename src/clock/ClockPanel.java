@@ -6,16 +6,30 @@ import java.awt.geom.*;
 import java.awt.font.*;
 import javax.swing.*;
 
+/**
+ *
+ * @author Heather Taylor-Stanley 10002973
+ * 
+ * This class is used to create the clock face. It uses the current time to decide the positioning of the clock hands.
+ */
 public class ClockPanel extends JPanel {
     
     Model model;
     
+    /**
+     * Set up the clockpanel.
+     * @param m
+     */
     public ClockPanel(Model m) {
         model = m;
         setPreferredSize(new Dimension(200, 200));
         setBackground(Color.white);
     }
     
+    /**
+     * This method paints the clock face.
+     * @param g
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
