@@ -21,7 +21,14 @@ import queuemanager.QueueUnderflowException;
 import queuemanager.SortedArrayPriorityQueue;
 import static queuemanager.SortedArrayPriorityQueue.storage;
 
-//Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
+/**
+ *
+ * @author Heather Taylor-Stanley 10002973
+ * 
+ * This class controls the interface of the program. It controls what the user sees, including buttons and dialog boxes. 
+ * 
+ * Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
+ */
 public class View implements Observer {
     //Set up variables
     ClockPanel panel;
@@ -32,6 +39,16 @@ public class View implements Observer {
     JFrame frame = new JFrame();
     iCalendar ical;
     
+    /**
+     * This method sets up the panel, including the buttons and menu.
+     * 
+     * @param model
+     * @throws IOException
+     * @throws ParseException
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     * 
+     */
     public View(Model model) throws IOException, ParseException, QueueOverflowException, QueueUnderflowException {
         //Set up instances
         panel = new ClockPanel(model);
@@ -119,9 +136,21 @@ public class View implements Observer {
         //Call the load method
         load();
     }
-    
-    //This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]
-    //Shows a dialogue popup which enables the user to set an alarm.
+
+    /**
+     * This method creates a dialog which enables the user to set an alarm.
+     * 
+     * This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]
+     *
+     * @param h
+     * @param m
+     * @param s
+     * @param d
+     * @param selected
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     * 
+     */
     public void setAlarm(int h, int m, int s, Date d, int selected) throws QueueOverflowException, QueueUnderflowException {  
         //Create the JSpinners
         JSpinner hourSpinner = new JSpinner();
@@ -207,7 +236,7 @@ public class View implements Observer {
                 if (alarm.add(alarmTime, priority, date, false) == true) {
                     pane.add(label, BorderLayout.PAGE_END);
                     //If this is not a new alarm and is actually an alarm edit, then remove the old alarm
-                    if (selected !=0){
+                    if (selected >= 0){
                         alarm.remove(selected);
                     }
                 }
@@ -218,8 +247,11 @@ public class View implements Observer {
         }
     }
     
-    //Checks what the soonest alarm is and sets the label on the panel to display it.
+    /**
+     * This method checks what the soonest alarm is and sets the label on the panel to display it.
+     */
     public void checkAlarm() {
+        int alarmNo = 0;
         //If there are no alarms in the array or if the last item in the array has already passed then display label.
        if (sorted.head() == null || ((PriorityItem)sorted.storage[sorted.tailIndex]).getPriority() == 0){
            label.setText("No alarm set");
@@ -233,22 +265,32 @@ public class View implements Observer {
                     count++;
                 }
                 time = ((PriorityItem)storage[count]).getItem().toString().split(":");
+                alarmNo = sorted.tailIndex + 1 - count;
             }
            else{
                 //Split the soonest alarm into hours/minutes/seconds
                 time = sorted.head().toString().split(":");
+                alarmNo = sorted.tailIndex + 1;
             }
             String h = time[0];
             String m = time[1];
             String s = time[2];
        
             // Set the label to display the date and time of the soonest alarm           
-            label.setText("Next Alarm Set to " + time[3] + "  " + h + ":" + m + ":" + s); 
+            label.setText("Next Alarm Set to " + time[3] + "  " + h + ":" + m + ":" + s + "\n Upcoming alarms: " + alarmNo); 
        }
     }
     
-    //This creates a dialogue enabling the user to select an alarm to edit. The details are then passed
-    //to the setAlarm function.
+
+
+    /**
+     * This creates a dialogue enabling the user to select an alarm to edit. The details are then passed to the setAlarm function.
+     * 
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     * @throws ParseException
+     * 
+     */
     public void editAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
         Object[] list = new Object[sorted.tailIndex+1];
         //For each item in the queue, split it into the date and time, and add these to the list array.
@@ -270,6 +312,7 @@ public class View implements Observer {
                     null,
                     list,
                     null);
+        if (selected != JOptionPane.CLOSED_OPTION) {
         // Split the selected alarm down into its time and date
                 String[] date = list[selected].toString().split("  ");
                 String[] selectedTime = date[1].split(":");
@@ -277,16 +320,39 @@ public class View implements Observer {
                 int min = Integer.parseInt(selectedTime[1]);
                 int sec = Integer.parseInt(selectedTime[2]);
                 String alDate = date[0];
+                
                 //Format the date
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");   
                 Date d = formatter.parse(alDate);
+                
+                //Get today's date
+                Date today = Calendar.getInstance().getTime();
+                String dates = (formatter.format(today));
+                today = formatter.parse(dates);
+
+                //Get difference between the dates  
+                Date alarmDate = formatter.parse(alDate);
+                long diff = alarmDate.getTime() - today.getTime();
+                
+                //If the passed date is before the current date, then change it to today's date
+                if (diff <=0){
+                    d = today;
+                }
+
                 //Send the variables to setAlarm
                 setAlarm(hour,min,sec,d,selected);
                 //Call checkAlarm to check when the new soonest alarm is
                 checkAlarm();
+        }
     }    
     
-    //This creates a dialogue enabling the user to select an alarm to delete
+    /**
+     * This method creates a dialog box, which allows the user to select an alarm to delete.
+     * 
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     * @throws ParseException
+     */
     public void deleteAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
         Object[] list = new Object[sorted.tailIndex+1];
         //For each item in the queue, split it into the date and time, and add these to the list array.
@@ -308,13 +374,20 @@ public class View implements Observer {
                     null,
                     list,
                     null);
-        //Send the selected alarm to remove
-        sorted.remove(selected);
-        //Call checkAlarm to check when the new soonest alarm is
-        checkAlarm();
+        if (selected != JOptionPane.CLOSED_OPTION) {
+            //Send the selected alarm to remove
+            sorted.remove(selected);
+            //Call checkAlarm to check when the new soonest alarm is
+            checkAlarm();
+        }
     } 
-    
-    //When the time changes this method is called. It updates the clock, and checks to see if the time now matches the alarm time.
+
+    /**
+     * When the time changes this method is called. It updates the clock, and checks to see if the time now matches the alarm time.
+     *
+     * @param o
+     * @param arg
+     */
     public void update(Observable o, Object arg) {
         try {
             panel.repaint();
@@ -323,29 +396,48 @@ public class View implements Observer {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    //Alerts the user that the selected time is in the past
+
+    /**
+     * Alerts the user that the selected time is in the past.
+     *
+     * @throws QueueUnderflowException
+     */
     public void alarmError() throws QueueUnderflowException {
         JOptionPane.showMessageDialog(panel,"Select a future time","Error!",JOptionPane.OK_CANCEL_OPTION);
     }
-    
-    //Alerts the user that they cannot save any more alarms
+
+    /**
+     * Alerts the user that they cannot save any more alarms.
+     *
+     * @throws QueueUnderflowException
+     */
     public void alarmFull() throws QueueUnderflowException {
         JOptionPane.showMessageDialog(panel,"You may only save up to 8 alarms!","Error!",JOptionPane.OK_CANCEL_OPTION);
     }
     
-    
-    //This method shows a popup informing the user that their alarm time has been met
+
+    /**
+     * This method shows a dialog informing the user that their alarm time has been met.
+     *
+     * @param id
+     * @throws QueueUnderflowException
+     */
     public void alarmAlert(int id) throws QueueUnderflowException {
+        Toolkit.getDefaultToolkit().beep();
         JOptionPane.showMessageDialog(panel,"Your alarm is ringing!","Alert!",JOptionPane.OK_CANCEL_OPTION);
         //The alarm is removed from the queue
         alarm.remove(id);
         //Checks to see when the next alarm is
         checkAlarm();
     }
-    
-    //This section is based on code by Java2s (n.d) Demonstration of File dialog boxes : File Chooser « Swing JFC « Java [online]. Available from <http://www.java2s.com/Code/Java/Swing-JFC/DemonstrationofFiledialogboxes.htm> [27 April 2018]
-    //Shows dialogue on close enabling user to save the alarms
+
+    /**
+     * Shows dialog on program close enabling user to save the alarms.
+     * 
+     * This section is based on code by Java2s (n.d) Demonstration of File dialog boxes : File Chooser « Swing JFC « Java [online]. Available from <http://www.java2s.com/Code/Java/Swing-JFC/DemonstrationofFiledialogboxes.htm> [27 April 2018]
+     *
+     * @throws IOException
+     */
     public void saveAlarms() throws IOException {
         String file = new String();
         String loc = new String();
@@ -375,6 +467,7 @@ public class View implements Observer {
             System.out.println("Saved!");
             //Close program
             frame.dispose();
+            //NOTE: The system exit line will crash the ViewTest file
             System.exit(0);
         }
         //If user selects to exit without saving, close program
@@ -383,8 +476,18 @@ public class View implements Observer {
             System.exit(0);
         }
     }
-    
-    //This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
+
+    /**
+     * This method creates a dialog box, enabling the user to load in saved alarms on startup.
+     * 
+     * This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
+     *
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ParseException
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     */
     public void load() throws IOException, FileNotFoundException, ParseException, QueueOverflowException, QueueUnderflowException{
         Object[] options = {"Load", "Exit"};
         //Shows dialog
