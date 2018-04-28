@@ -23,8 +23,11 @@ import queuemanager.QueueUnderflowException;
 import queuemanager.SortedArrayPriorityQueue;
 
 /**
+ * This class controls the loading and saving of alarms in an iCalendar format.
  *
- * @author Heather
+ * @author Heather Taylor-Stanley
+ * 
+ * 
  */
 public class iCalendar {
     Calendar calendar;
@@ -54,14 +57,26 @@ public class iCalendar {
     BufferedWriter bw = null;
     FileWriter fw;
     
+    /**
+     * Initialise the variables.
+     * @param m
+     * @param v
+     */
     public iCalendar(Model m, View v){
         model = m;
         view = v;
         alarm = new Alarm(m,v);
     }
-    
-    //Code in this section is based on code by Lofy, J (2015) Writing .ics iCal file using java [online]. Available from <https://stackoverflow.com/questions/31238492/writing-ics-ical-file-using-java> [27 April 2018]
-    //Writes alarms to a new file
+
+    /**
+     * Writes alarms to an iCalendar file, using the passed location and file name.
+     * 
+     * Code in this section is based on code by Lofy, J (2015) Writing .ics iCal file using java [online]. Available from <https://stackoverflow.com/questions/31238492/writing-ics-ical-file-using-java> [27 April 2018]
+     *
+     * @param name
+     * @param location
+     * @throws IOException
+     */
     public void write(String name, String location) throws IOException {
         //Set ics extension for iCalendar file
         String path = location + "/" + name + ".ics";
@@ -82,20 +97,7 @@ public class iCalendar {
                 String year[] = date[2].split(",");
                 String alarmYear = year[0];
                 hour = hour.substring(1);
-                
-                //If the hour/min/second is below 10, add a 0 in front
-                if (Integer.parseInt(hour) < 10){
-                    hour = "0" + hour;
-                }
-
-                if (Integer.parseInt(min) < 10){
-                    min = "0" + min;
-                }
-
-                if (Integer.parseInt(sec) < 10){
-                    sec = "0" + sec;
-                } 
-                
+                   
                 String dateTime = alarmYear + month + day + "T" + hour + min + sec + "Z\r\n";
                 String trigger = "TRIGGER;VALUE=DATE-TIME:" + dateTime;
                 //Write the variables to the file
@@ -121,8 +123,16 @@ public class iCalendar {
         }
         bw.close();
     }
-    
-    //Reads a saved alarm file, and adds the alarms to the program
+
+    /**
+     * Reads a saved alarm file, and adds the alarms to the program
+     * @param f
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ParseException
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     */
     public void read(String f) throws FileNotFoundException, IOException, ParseException, QueueOverflowException, QueueUnderflowException {
         File file = new File(f);
         int i = 0;
@@ -148,6 +158,8 @@ public class iCalendar {
             String fullTime = hour + ":" + minute + ":" + second;
             String fullDate = day + "/" + month + "/" + year;
 
+            System.out.println(fullTime);
+            System.out.println(fullDate);
             //Format the date
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date d = formatter.parse(fullDate);
