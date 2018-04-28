@@ -13,17 +13,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Observable;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
- *
- * @author Heather
+ * This class runs test on the view class.
+ * @author Heather Taylor-Stanley 10002973
  */
 public class ViewTest {
     View instance;
@@ -44,8 +41,8 @@ public class ViewTest {
     public void setUp() throws ParseException, QueueOverflowException, QueueUnderflowException {
         today = Calendar.getInstance().getTime();
         //Format todays date
-        String dates = (formatter.format(today));
-        today = formatter.parse(dates);
+        String date = (formatter.format(today));
+        today = formatter.parse(date);
     }
     
     @After
@@ -65,6 +62,7 @@ public class ViewTest {
     
     /**
      * Test of load method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testLoad() throws Exception {
@@ -74,6 +72,7 @@ public class ViewTest {
 
     /**
      * Test of setAlarm method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSetAlarm() throws Exception {
@@ -98,6 +97,7 @@ public class ViewTest {
 
     /**
      * Test of editAlarm method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testEditAlarm() throws Exception {
@@ -108,6 +108,7 @@ public class ViewTest {
 
     /**
      * Test of alarmAlert method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAlarmAlert() throws Exception {
@@ -118,6 +119,7 @@ public class ViewTest {
 
     /**
      * Test of alarmError method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAlarmError() throws Exception {
@@ -127,6 +129,7 @@ public class ViewTest {
     
     /**
      * Test of deleteAlarm method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteAlarm() throws Exception {
@@ -137,6 +140,7 @@ public class ViewTest {
 
     /**
      * Test of alarmFull method, of class View.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAlarmFull() throws Exception {
@@ -147,6 +151,7 @@ public class ViewTest {
     /**
      * Test of saveAlarms method, of class View.
      * NOTE: Test will crash due to System exit line in saveAlarms method.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSaveAlarms() throws Exception {
