@@ -293,6 +293,7 @@ public class View implements Observer {
      */
     public void editAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
         Object[] list = new Object[sorted.tailIndex+1];
+        String message = "";
         //For each item in the queue, split it into the date and time, and add these to the list array.
         for(int i = 0; i <SortedArrayPriorityQueue.tailIndex+1; i++){
             String[] time = ((PriorityItem)sorted.storage[i]).getItem().toString().split(":");
@@ -302,10 +303,18 @@ public class View implements Observer {
             String date = time[3];
             list[i] = date + "  " + h + ":" + m + ":" + s;
         }
-        //Create the dialogue popup
+        
+        //Set the dialog message
+        if(sorted.tailIndex+1 > 0){
+            message = "Select an alarm to edit: ";
+        }
+        else {
+            message = "There are no alarms set!";    
+        }
+        //Create the dialog popup
         int selected = JOptionPane.showOptionDialog(
                     panel,
-                    "Select an alarm to edit: ",
+                    message,
                     "Edit alarm",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
@@ -355,6 +364,7 @@ public class View implements Observer {
      */
     public void deleteAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
         Object[] list = new Object[sorted.tailIndex+1];
+        String message = "";
         //For each item in the queue, split it into the date and time, and add these to the list array.
         for(int i = 0; i <SortedArrayPriorityQueue.tailIndex+1; i++){
             String[] time = ((PriorityItem)sorted.storage[i]).getItem().toString().split(":");
@@ -364,10 +374,18 @@ public class View implements Observer {
             String date = time[3];
             list[i] = date + "  " + h + ":" + m + ":" + s;
         }
+        
+        //Set the dialog message
+        if(sorted.tailIndex+1 > 0){
+            message = "Select an alarm to delete: ";
+        }
+        else {
+            message = "There are no alarms set!";    
+        }
         //Create the dialogue popup
         int selected = JOptionPane.showOptionDialog(
                     panel,
-                    "Select an alarm to delete: ",
+                    message,
                     "Delete alarm",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
