@@ -138,7 +138,7 @@ public class View implements Observer {
     /**
      * This method creates a dialog which enables the user to set an alarm.
      * 
-     * This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]
+     * {@literal This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]}
      *
      * @param h     Contains the hour of the alarm.
      * @param m     Contains the minute of the alarm.
