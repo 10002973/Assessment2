@@ -70,7 +70,7 @@ public class iCalendar {
     /**
      * Writes alarms to an iCalendar file, using the passed location and file name.
      * 
-     * Code in this section is based on code by Lofy, J (2015) Writing .ics iCal file using java [online]. Available from <https://stackoverflow.com/questions/31238492/writing-ics-ical-file-using-java> [27 April 2018]
+     * {@literal Code in this section is based on code by Lofy, J (2015) Writing .ics iCal file using java [online]. Available from <https://stackoverflow.com/questions/31238492/writing-ics-ical-file-using-java> [27 April 2018]}
      *
      * @param name      Contains name of the file.
      * @param location  Contains location of the file.

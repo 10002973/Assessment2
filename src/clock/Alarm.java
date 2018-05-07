@@ -45,7 +45,7 @@ public class Alarm {
 
     /**
      * Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time, then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
-     * This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]
+     * {@literal This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]}
      * 
      * @param alarm         Contains the passed alarm time.
      * @param priority      Contains the priority of the alarm.

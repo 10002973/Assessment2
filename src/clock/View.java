@@ -23,7 +23,7 @@ import static queuemanager.SortedArrayPriorityQueue.storage;
 
 /**
  * This class controls the interface of the program, It controls what the user sees including buttons and dialog boxes. 
- * Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
+ * {@literal Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]}
  * @author Heather Taylor-Stanley 10002973
  * @version "%I%, %G%"
  */
@@ -450,7 +450,7 @@ public class View implements Observer {
     /**
      * Shows dialog on program close enabling user to save the alarms.
      * 
-     * This section is based on code by Java2s (n.d) Demonstration of File dialog boxes : File Chooser « Swing JFC « Java [online]. Available from <http://www.java2s.com/Code/Java/Swing-JFC/DemonstrationofFiledialogboxes.htm> [27 April 2018]
+     * {@literal This section is based on code by Java2s (n.d) Demonstration of File dialog boxes : File Chooser « Swing JFC « Java [online]. Available from <http://www.java2s.com/Code/Java/Swing-JFC/DemonstrationofFiledialogboxes.htm> [27 April 2018]}
      *
      * @throws IOException      Throws exception if input output exception occurs.
      */
@@ -496,7 +496,7 @@ public class View implements Observer {
     /**
      * This method creates a dialog box, enabling the user to load in saved alarms on startup.
      * 
-     * This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
+     * {@literal This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]}
      *
      * @throws IOException      Throws exception if input output exception occurs.
      * @throws FileNotFoundException    Throws exception if file is not found.
