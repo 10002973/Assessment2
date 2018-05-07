@@ -7,10 +7,10 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
- *
+ * This class manages the user input, it listens for actions and then acts accordingly.
  * @author Heather Taylor-Stanley 10002973
- * 
- * This class manages the user input. It listens for actions and then acts accordingly.
+ * @version "%I%"
+ * @date 07/05/2018
  * 
  */
 public class Controller {
@@ -24,8 +24,8 @@ public class Controller {
     /**
      * Checks for user actions and either updates the software or calls the saveAlarms method.
      * 
-     * @param m
-     * @param v
+     * @param m     Contains model object.
+     * @param v     Contains view object.
      */
     public Controller(Model m, View v) {
         model = m;

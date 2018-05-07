@@ -16,10 +16,10 @@ import queuemanager.SortedArrayPriorityQueue;
 import static queuemanager.SortedArrayPriorityQueue.storage;
 
 /**
- *
- * @author Heather Taylor-Stanley 10002973
  * This class controls the alarm, including all of the alarm functions such as adding and removing alarms. It uses the methods in SortedArrayPriorityQueue.
- * 
+ * @author Heather Taylor-Stanley 10002973
+ * @version "%I%"
+ * @date 07/05/2018
  */
 public class Alarm {
     //Set variables
@@ -35,9 +35,9 @@ public class Alarm {
     int second;
     
     /**
-     * Initialise the variables.
-     * @param m
-     * @param v
+     * Alarm constructor, initialises the model and view variables.
+     * @param m     Passed model object.
+     * @param v     Passed view object.
      */
     public Alarm(Model m, View v){
         model = m;
@@ -45,18 +45,17 @@ public class Alarm {
     }
 
     /**
-     * Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time.
-     * Then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
+     * Checks the time of the alarm, and calculates the priority based on the difference between the current time and the alarm time, then sends the alarm to SortedArrayPriorityQueue to be added to the priority queue.
      * This section is based on code by MySampleCode (n.d) Java calculate difference between two dates [online]. Available from <http://www.mysamplecode.com/2012/06/java-calculate-days-difference.html> [26 April 2018]
      * 
-     * @param alarm
-     * @param priority
-     * @param alarmCal
-     * @param loaded
-     * @return
-     * @throws ParseException
-     * @throws QueueUnderflowException
-     * @throws QueueOverflowException
+     * @param alarm         Contains the passed alarm time.
+     * @param priority      Contains the priority of the alarm.
+     * @param alarmCal      Contains the date of the passed alarm.
+     * @param loaded        Contains true or false depending on if the alarm has been loaded from file.
+     * @return              Returns true or false depending if the alarm is successfully added to the queue.
+     * @throws ParseException           Throws parse exception if it occurs.
+     * @throws QueueUnderflowException  Throws exception if queue underflow occurs.
+     * @throws QueueOverflowException   Throws exception if queue overflow occurs.
      * 
      */
     public Boolean add(Object alarm, int priority, Object alarmCal, boolean loaded) throws ParseException, QueueUnderflowException, QueueOverflowException {
@@ -138,13 +137,13 @@ public class Alarm {
     }
 
     /**
-     * Check if the alarm is in the future. If not, call alarmError to show an error message.
+     * Check if the alarm is in the future, calls alarmError to show an error message if not.
      * 
-     * @param days
-     * @param timeDiff
-     * @param loaded
-     * @return
-     * @throws QueueUnderflowException
+     * @param days      Contains number of days between today and alarm date.
+     * @param timeDiff  Contains difference in time between now and alarm.
+     * @param loaded    Contains true or false depending on if the alarm has been loaded from file.
+     * @return          Returns true or false depending on if the alarm is in the future or has passed.
+     * @throws QueueUnderflowException     Throws exception if queue underflow occurs.
      * 
      */
     public Boolean checkDate(long days, long timeDiff, boolean loaded) throws QueueUnderflowException{
@@ -160,8 +159,8 @@ public class Alarm {
     /**
      * Call SortedArrayPriorityQueue to remove an alarm from the queue
      * 
-     * @param index
-     * @throws QueueUnderflowException
+     * @param index     Contains queue index of the alarm.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      * 
      */
     public void remove(int index) throws QueueUnderflowException {
@@ -171,8 +170,8 @@ public class Alarm {
     /**
      * Call SortedArrayPriorityQueue to get the next alarm.
      * 
-     * @return
-     * @throws QueueUnderflowException
+     * @return      Returns the head alarm of the queue.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      * 
      */
     public Object head() throws QueueUnderflowException{
@@ -181,7 +180,7 @@ public class Alarm {
 
     /**
      * Call SortedArrayPriorityQueue to print all alarms in the queue
-     * @return
+     * @return      Returns the alarms in the queue in a string format.
      * 
      */
     @Override
@@ -192,7 +191,7 @@ public class Alarm {
     
     /**
      * If the current time matches the time for the next alarm then call alarmAlert to show an alert.
-     * @throws QueueUnderflowException
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      * 
      */
     public void alert() throws QueueUnderflowException {

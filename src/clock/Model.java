@@ -5,10 +5,10 @@ import java.util.Observable;
 //import java.util.GregorianCalendar;
 
 /**
- *
+ * This class controls the data of the software, it holds the current date and time, and updates the program when the time changes.
  * @author Heather Taylor-Stanley 10002973
- * 
- * This class controls the data of the software. It holds the current date and time, and updates the program when the time changes.
+ * @version "%I%"
+ * @date 07/05/2018
  * 
  */
 public class Model extends Observable {
@@ -21,14 +21,14 @@ public class Model extends Observable {
     int oldSecond = 0;
     
     /**
-     *
+     *  Model constructor.
      */
     public Model() {
         update();
     }
     
     /**
-     * Gets the current time and date. If the time changes it updates the program.
+     * Gets the current time and date, and if the time changes it updates the program.
      * 
      */
     public void update() {

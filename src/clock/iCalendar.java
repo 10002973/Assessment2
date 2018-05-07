@@ -24,9 +24,9 @@ import queuemanager.SortedArrayPriorityQueue;
 
 /**
  * This class controls the loading and saving of alarms in an iCalendar format.
- *
  * @author Heather Taylor-Stanley
- * 
+ * @version "%I%"
+ * @date 07/05/2018
  * 
  */
 public class iCalendar {
@@ -58,9 +58,9 @@ public class iCalendar {
     FileWriter fw;
     
     /**
-     * Initialise the variables.
-     * @param m
-     * @param v
+     * iCalendar constructor, initialises the model, view, and alarm variables.
+     * @param m     Contains the passed model object.
+     * @param v     Contains the passed view object.
      */
     public iCalendar(Model m, View v){
         model = m;
@@ -73,9 +73,9 @@ public class iCalendar {
      * 
      * Code in this section is based on code by Lofy, J (2015) Writing .ics iCal file using java [online]. Available from <https://stackoverflow.com/questions/31238492/writing-ics-ical-file-using-java> [27 April 2018]
      *
-     * @param name
-     * @param location
-     * @throws IOException
+     * @param name      Contains name of the file.
+     * @param location  Contains location of the file.
+     * @throws IOException  Throws exception if input output exception occurs.
      */
     public void write(String name, String location) throws IOException {
         //Set ics extension for iCalendar file
@@ -126,12 +126,12 @@ public class iCalendar {
 
     /**
      * Reads a saved alarm file, and adds the alarms to the program
-     * @param f
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws ParseException
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
+     * @param f     Contains file.
+     * @throws FileNotFoundException    Throws exception if file is not found.
+     * @throws IOException      Throws exception if input output exception occurs.
+     * @throws ParseException           Throws exception if parse exception occurs.
+     * @throws QueueOverflowException   Throws exception if queue overflow exception occurs.
+     * @throws QueueUnderflowException  Throws exception if queue underflow exception occurs.
      */
     public void read(String f) throws FileNotFoundException, IOException, ParseException, QueueOverflowException, QueueUnderflowException {
         File file = new File(f);

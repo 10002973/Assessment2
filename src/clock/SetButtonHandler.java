@@ -17,9 +17,10 @@ import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
- * @author Heather Taylor-Stanley 10002973
- * 
  * This class handles the set alarm button. When the set alarm button or menu item is pressed, this class calls the setAlarm function. 
+ * @author Heather Taylor-Stanley 10002973
+ * @version "%I%"
+ * @date 07/05/2018
  */
 public class SetButtonHandler implements ActionListener{
         
@@ -27,9 +28,9 @@ public class SetButtonHandler implements ActionListener{
     View view;
     
     /**
-     *
-     * @param m
-     * @param v
+     * SetButtonHandler constructor, initialises the model and view variables.
+     * @param m     Contains the passed model object.
+     * @param v     Contains the passed view object.
      */
     public SetButtonHandler(Model m, View v) {
         model = m;
@@ -38,7 +39,7 @@ public class SetButtonHandler implements ActionListener{
     
     /**
      * Calls the setAlarm method when the set alarm button or menu item is pressed.
-     * @param event
+     * @param event     Contains passed ActionEvent object.
      */
     @Override
     public void actionPerformed(ActionEvent event) {

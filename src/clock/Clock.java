@@ -8,17 +8,19 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class is the main class for the program.
  * @author Heather Taylor-Stanley 10002973
+ * @version "%I%"
+ * @date 07/05/2018
  * 
  */
 public class Clock {
     
     /**
-     *
-     * @param args
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
-     * @throws IOException
-     * @throws ParseException
+     * The main method for the software, initialises the clock.
+     * @param args  Passed arguments.
+     * @throws QueueOverflowException       Throws exception if queue overflow occurs.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
+     * @throws IOException                  Throws exception if input output error occurs.
+     * @throws ParseException               Throws exception if parse error occurs.
      */
     public static void main(String[] args) throws QueueOverflowException, QueueUnderflowException, IOException, ParseException {
         Model model = new Model();

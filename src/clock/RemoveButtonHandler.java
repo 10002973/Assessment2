@@ -14,9 +14,11 @@ import queuemanager.QueueOverflowException;
 import queuemanager.QueueUnderflowException;
 
 /**
+ * This class handles the remove alarm button, when the remove button or menu item is pressed this class calls the deleteAlarm function. 
  * @author Heather Taylor-Stanley 10002973
+ * @version "%I%"
+ * @date 07/05/2018
  * 
- * This class handles the remove alarm button. When the remove button or menu item is pressed, this class calls the deleteAlarm function. 
  */
 public class RemoveButtonHandler implements ActionListener{
        
@@ -24,9 +26,9 @@ public class RemoveButtonHandler implements ActionListener{
     View view;
     
     /**
-     *
-     * @param m
-     * @param v
+     * RemoveButtonHandler constructor, initialises the model and view variables.
+     * @param m     Contains the passed model object.
+     * @param v     Contains the passed view object.
      */
     public RemoveButtonHandler(Model m, View v) {
         model = m;
@@ -35,8 +37,7 @@ public class RemoveButtonHandler implements ActionListener{
     
     /**
      * Calls the deleteAlarm method when the delete menu item or button is pressed.
-     * 
-     * @param event
+     * @param event     Contains passed ActionEvent object.
      */
     public void actionPerformed(ActionEvent event) {
         try {

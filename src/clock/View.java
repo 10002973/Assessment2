@@ -22,12 +22,11 @@ import queuemanager.SortedArrayPriorityQueue;
 import static queuemanager.SortedArrayPriorityQueue.storage;
 
 /**
- *
- * @author Heather Taylor-Stanley 10002973
- * 
- * This class controls the interface of the program. It controls what the user sees, including buttons and dialog boxes. 
- * 
+ * This class controls the interface of the program, It controls what the user sees including buttons and dialog boxes. 
  * Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
+ * @author Heather Taylor-Stanley 10002973
+ * @version "%I%"
+ * @date 07/05/2018
  */
 public class View implements Observer {
     //Set up variables
@@ -42,11 +41,11 @@ public class View implements Observer {
     /**
      * This method sets up the panel, including the buttons and menu.
      * 
-     * @param model
-     * @throws IOException
-     * @throws ParseException
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
+     * @param model         Contains passed model object.
+     * @throws IOException          Throws exception if input output exception occurs.
+     * @throws ParseException       Throws exception if parse exception occurs.
+     * @throws QueueOverflowException       Throws exception if queue overflow occurs.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      * 
      */
     public View(Model model) throws IOException, ParseException, QueueOverflowException, QueueUnderflowException {
@@ -142,13 +141,13 @@ public class View implements Observer {
      * 
      * This section is based on code by Java2s (n.d) Create SpinnerDateModel for Date value and set start end date value in Java [online]. Available from <http://www.java2s.com/Tutorials/Java/Swing/JSpinner/Create_SpinnerDateModel_for_Date_value_and_set_start_end_date_value_in_Java.htm> [26 April 2018]
      *
-     * @param h
-     * @param m
-     * @param s
-     * @param d
-     * @param selected
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
+     * @param h     Contains the hour of the alarm.
+     * @param m     Contains the minute of the alarm.
+     * @param s     Contains the second of the alarm.
+     * @param d     Contains the date of the alarm.
+     * @param selected      Contains index of alarm if this is an edit.
+     * @throws QueueOverflowException       Throws exception if queue overflow occurs.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      * 
      */
     public void setAlarm(int h, int m, int s, Date d, int selected) throws QueueOverflowException, QueueUnderflowException {  
@@ -286,9 +285,9 @@ public class View implements Observer {
     /**
      * This creates a dialogue enabling the user to select an alarm to edit. The details are then passed to the setAlarm function.
      * 
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
-     * @throws ParseException
+     * @throws QueueOverflowException       Throws exception if queue overflow occurs.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
+     * @throws ParseException               Throws exception if parse exception occurs.
      * 
      */
     public void editAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
@@ -358,9 +357,9 @@ public class View implements Observer {
     /**
      * This method creates a dialog box, which allows the user to select an alarm to delete.
      * 
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
-     * @throws ParseException
+     * @throws QueueOverflowException       Throws exception if queue overflow occurs.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
+     * @throws ParseException               Throws exception if parse exception occurs.
      */
     public void deleteAlarm() throws QueueOverflowException, QueueUnderflowException, ParseException {
         Object[] list = new Object[sorted.tailIndex+1];
@@ -401,10 +400,10 @@ public class View implements Observer {
     } 
 
     /**
-     * When the time changes this method is called. It updates the clock, and checks to see if the time now matches the alarm time.
+     * When the time changes this method is called, it updates the clock and checks to see if the time now matches the alarm time.
      *
-     * @param o
-     * @param arg
+     * @param o     Contains passed observable object.
+     * @param arg   Contains passed argument object.
      */
     public void update(Observable o, Object arg) {
         try {
@@ -418,7 +417,7 @@ public class View implements Observer {
     /**
      * Alerts the user that the selected time is in the past.
      *
-     * @throws QueueUnderflowException
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      */
     public void alarmError() throws QueueUnderflowException {
         JOptionPane.showMessageDialog(panel,"Select a future time","Error!",JOptionPane.OK_CANCEL_OPTION);
@@ -427,7 +426,7 @@ public class View implements Observer {
     /**
      * Alerts the user that they cannot save any more alarms.
      *
-     * @throws QueueUnderflowException
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      */
     public void alarmFull() throws QueueUnderflowException {
         JOptionPane.showMessageDialog(panel,"You may only save up to 8 alarms!","Error!",JOptionPane.OK_CANCEL_OPTION);
@@ -437,8 +436,8 @@ public class View implements Observer {
     /**
      * This method shows a dialog informing the user that their alarm time has been met.
      *
-     * @param id
-     * @throws QueueUnderflowException
+     * @param id        Contains passed alarm index.
+     * @throws QueueUnderflowException      Throws exception if queue underflow occurs.
      */
     public void alarmAlert(int id) throws QueueUnderflowException {
         Toolkit.getDefaultToolkit().beep();
@@ -454,7 +453,7 @@ public class View implements Observer {
      * 
      * This section is based on code by Java2s (n.d) Demonstration of File dialog boxes : File Chooser « Swing JFC « Java [online]. Available from <http://www.java2s.com/Code/Java/Swing-JFC/DemonstrationofFiledialogboxes.htm> [27 April 2018]
      *
-     * @throws IOException
+     * @throws IOException      Throws exception if input output exception occurs.
      */
     public void saveAlarms() throws IOException {
         String file = new String();
@@ -500,11 +499,11 @@ public class View implements Observer {
      * 
      * This section is based on code by CodeJava (2015) Show simple open file dialog using JFileChooser [online]. Available from <http://www.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser> [27 April 2018]
      *
-     * @throws IOException
-     * @throws FileNotFoundException
-     * @throws ParseException
-     * @throws QueueOverflowException
-     * @throws QueueUnderflowException
+     * @throws IOException      Throws exception if input output exception occurs.
+     * @throws FileNotFoundException    Throws exception if file is not found.
+     * @throws ParseException           Throws exception if parse exception occurs.
+     * @throws QueueOverflowException   Throws exception if queue overflow exception occurs.
+     * @throws QueueUnderflowException  Throws exception if queue underflow exception occurs.
      */
     public void load() throws IOException, FileNotFoundException, ParseException, QueueOverflowException, QueueUnderflowException{
         Object[] options = {"Load", "Exit"};
