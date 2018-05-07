@@ -9,8 +9,7 @@ import javax.swing.*;
 /**
  * This class is used to create the clock face, and uses the current time to decide the positioning of the clock hands.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class ClockPanel extends JPanel {

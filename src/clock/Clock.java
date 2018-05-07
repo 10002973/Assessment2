@@ -8,8 +8,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class is the main class for the program.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class Clock {

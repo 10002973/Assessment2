@@ -12,8 +12,7 @@ import org.junit.Test;
 /**
  * This class runs tests on the model class.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class ModelTest {
     

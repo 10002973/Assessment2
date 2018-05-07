@@ -25,8 +25,7 @@ import static queuemanager.SortedArrayPriorityQueue.storage;
  * This class controls the interface of the program, It controls what the user sees including buttons and dialog boxes. 
  * Dialog popups in this section are based on code by Marilena (2017) Java Swing – JOptionPane showOptionDialog example [online]. Available from <https://www.mkyong.com/swing/java-swing-joptionpane-showoptiondialog-example/> [27 April 2018]
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class View implements Observer {
     //Set up variables

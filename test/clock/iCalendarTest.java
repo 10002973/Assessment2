@@ -17,8 +17,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class runs tests on the iCalendar class
  * @author Heather Taylor-Stanley
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class iCalendarTest {
     //Set variables

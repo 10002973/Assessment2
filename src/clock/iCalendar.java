@@ -25,8 +25,7 @@ import queuemanager.SortedArrayPriorityQueue;
 /**
  * This class controls the loading and saving of alarms in an iCalendar format.
  * @author Heather Taylor-Stanley
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class iCalendar {

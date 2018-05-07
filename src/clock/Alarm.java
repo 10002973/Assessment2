@@ -18,8 +18,7 @@ import static queuemanager.SortedArrayPriorityQueue.storage;
 /**
  * This class controls the alarm, including all of the alarm functions such as adding and removing alarms. It uses the methods in SortedArrayPriorityQueue.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class Alarm {
     //Set variables

@@ -19,8 +19,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class runs tests on the Alarm class.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class AlarmTest {
     

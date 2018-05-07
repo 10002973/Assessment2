@@ -9,8 +9,7 @@ import javax.swing.Timer;
 /**
  * This class manages the user input, it listens for actions and then acts accordingly.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class Controller {

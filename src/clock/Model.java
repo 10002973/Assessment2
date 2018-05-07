@@ -7,8 +7,7 @@ import java.util.Observable;
 /**
  * This class controls the data of the software, it holds the current date and time, and updates the program when the time changes.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class Model extends Observable {

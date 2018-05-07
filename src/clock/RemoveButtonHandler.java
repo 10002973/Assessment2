@@ -16,8 +16,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class handles the remove alarm button, when the remove button or menu item is pressed this class calls the deleteAlarm function. 
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class RemoveButtonHandler implements ActionListener{

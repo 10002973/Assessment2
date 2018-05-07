@@ -12,8 +12,7 @@ import org.junit.Test;
 /**
  * This class tests the clock class.
  * @author Heather Taylor-Stanley
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class ClockTest {
     

@@ -16,8 +16,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class handles the edit button, when the edit button or menu item is pressed this class calls the editAlarm function. 
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  * 
  */
 public class EditButtonHandler implements ActionListener{

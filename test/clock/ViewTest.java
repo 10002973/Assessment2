@@ -21,8 +21,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class runs test on the view class.
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class ViewTest {
     View instance;

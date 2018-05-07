@@ -19,8 +19,7 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class handles the set alarm button. When the set alarm button or menu item is pressed, this class calls the setAlarm function. 
  * @author Heather Taylor-Stanley 10002973
- * @version "%I%"
- * @date 07/05/2018
+ * @version "%I%, %G%"
  */
 public class SetButtonHandler implements ActionListener{
         
