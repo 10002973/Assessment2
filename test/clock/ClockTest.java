@@ -12,24 +12,20 @@ import org.junit.Test;
 /**
  * This class tests the clock class.
  * @author Heather Taylor-Stanley
- * 
+ * @version "%I%"
+ * @date 07/05/2018
  */
 public class ClockTest {
     
+    /**
+     *  Constructor of class ClockTest.
+     */
     public ClockTest() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     /**
      * Test of main method, of class Clock.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testMain() throws Exception {

@@ -17,30 +17,32 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class runs tests on the iCalendar class
  * @author Heather Taylor-Stanley
+ * @version "%I%"
+ * @date 07/05/2018
  */
 public class iCalendarTest {
     //Set variables
     Model model = new Model();
     View view;
     iCalendar instance;
-    
-    //Initialise variables
+
+    /**
+     * Constructor of class iCalendarTest.
+     * @throws IOException      Throws exception if input output exception occurs.
+     * @throws QueueOverflowException   Throws exception if queue overflow exception occurs.
+     * @throws QueueUnderflowException  Throws exception if queue underflow exception occurs.
+     * @throws FileNotFoundException    Throws exception if file is not found.
+     * @throws ParseException           Throws exception if parse exception occurs.
+     * 
+     */
     public iCalendarTest() throws IOException, QueueOverflowException, QueueUnderflowException, FileNotFoundException, ParseException {
         this.view = new View(model);
         instance = new iCalendar(model, view);
     }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of write method, of class iCalendar.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testWrite() throws Exception {
@@ -52,7 +54,7 @@ public class iCalendarTest {
 
     /**
      * Test of read method, of class iCalendar.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testRead() throws Exception {

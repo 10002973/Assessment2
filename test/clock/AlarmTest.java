@@ -19,6 +19,8 @@ import queuemanager.QueueUnderflowException;
 /**
  * This class runs tests on the Alarm class.
  * @author Heather Taylor-Stanley 10002973
+ * @version "%I%"
+ * @date 07/05/2018
  */
 public class AlarmTest {
     
@@ -28,28 +30,22 @@ public class AlarmTest {
     Calendar calendar = Calendar.getInstance();
     Date now = calendar.getTime();
     
+    /**
+     * Constructor of class AlarmTest.
+     * @throws IOException      Throws exception if input output exception occurs.
+     * @throws ParseException           Throws exception if parse exception occurs.
+     * @throws QueueOverflowException   Throws exception if queue overflow exception occurs.
+     * @throws QueueUnderflowException  Throws exception if queue underflow exception occurs.
+     */
     public AlarmTest() throws IOException, ParseException, QueueOverflowException, QueueUnderflowException {
         model = new Model();
         this.view = new View(model);
         instance = new Alarm(model,view);
     }
-    
-    
-    /*
-     * Sets up a new instance. 
-     */
-    @Before
-    public void setUp(){
 
-    };
-    
-    @After
-    public void tearDown(){
-        
-    };
     /**
      * Test adding alarm to head position.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testAddHead() throws Exception {
@@ -64,7 +60,7 @@ public class AlarmTest {
     
     /**
      * Test adding alarm to middle of queue.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testAddMiddle() throws Exception {
@@ -82,7 +78,7 @@ public class AlarmTest {
     
     /**
      * Test adding alarm to end of queue.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testAddEnd() throws Exception {
@@ -100,7 +96,7 @@ public class AlarmTest {
 
     /**
      * Test of checkDate method, of class Alarm.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testCheckDate() throws Exception {
@@ -115,7 +111,7 @@ public class AlarmTest {
 
     /**
      * Test of remove method, of class Alarm.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testRemove() throws Exception {
@@ -127,7 +123,7 @@ public class AlarmTest {
 
     /**
      * Test of head method, of class Alarm.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testHead() throws Exception {
@@ -140,12 +136,12 @@ public class AlarmTest {
 
     /**
      * Test of toString method, of class Alarm.
-     * @throws queuemanager.QueueOverflowException
-     * @throws java.text.ParseException
-     * @throws queuemanager.QueueUnderflowException
+     * @throws queuemanager.QueueOverflowException              Throws exception if queue overflow exception occurs.
+     * @throws java.text.ParseException ParseException          Throws exception if parse exception occurs.
+     * @throws queuemanager.QueueUnderflowException             QueueUnderflowException  Throws exception if queue underflow exception occurs.
      */
     @Test
-    public void testToString() throws QueueOverflowException, ParseException, ParseException, QueueUnderflowException {
+    public void testToString() throws QueueOverflowException, ParseException, QueueUnderflowException {
         instance.add("22:12:12", 0, now, false);
         instance.add("23:12:12", 0, now, false);
         System.out.println("toString");
@@ -157,7 +153,7 @@ public class AlarmTest {
 
     /**
      * Test of alert method, of class Alarm.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  Throws exception.
      */
     @Test
     public void testAlert() throws Exception {
