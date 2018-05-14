@@ -60,12 +60,6 @@ public class ViewTest {
         today = formatter.parse(date);
     }
     
-    /**
-     *
-     */
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of update method, of class View.
